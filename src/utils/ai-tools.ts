@@ -1,6 +1,4 @@
-import { createOpenAI } from '@ai-sdk/openai';
-import { createAnthropic } from '@ai-sdk/anthropic';
-import { createOpenRouter } from '@openrouter/ai-sdk-provider';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 import { LanguageModelV1 } from 'ai';
 import { type AIConfig } from '@/lib/ai-models';
 import {
@@ -15,28 +13,12 @@ export function createAIClientFromResolvedRequest(
   resolved: ResolvedAIRequest,
   useThinking?: boolean
 ) {
-  void useThinking; // Keep for future use
+  void useThinking;
 
   switch (resolved.providerId) {
-    case 'anthropic':
-      return createAnthropic({ apiKey: resolved.apiKey })(resolved.modelId) as LanguageModelV1;
-    
-    case 'openai':
-      return createOpenAI({ 
-        apiKey: resolved.apiKey,
-        compatibility: 'strict'
-      })(resolved.modelId) as LanguageModelV1;
-    
-    case 'openrouter':
-      return createOpenRouter({
-        apiKey: resolved.apiKey,
-        baseURL: 'https://openrouter.ai/api/v1',
-        headers: {
-          'HTTP-Referer': process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-          'X-Title': 'ResumeLM'
-        }
-      })(resolved.modelId) as LanguageModelV1;
-    
+    case 'deepseek':
+      return createDeepSeek({ apiKey: resolved.apiKey })(resolved.modelId) as LanguageModelV1;
+
     default:
       throw new Error(`Unsupported provider: ${resolved.providerId}`);
   }

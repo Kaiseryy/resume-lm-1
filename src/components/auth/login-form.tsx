@@ -52,6 +52,7 @@ export function LoginForm() {
           name="email"
           type="email"
           placeholder="you@example.com"
+          defaultValue="admin@admin.com"
           required
           autoComplete="username"
           aria-invalid={Boolean(emailError)}
@@ -82,6 +83,7 @@ export function LoginForm() {
             name="password"
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
+            defaultValue="Admin123"
             required
             minLength={1}
             autoComplete="current-password"

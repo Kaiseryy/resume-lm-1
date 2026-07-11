@@ -20,8 +20,8 @@ export function ApiKeysForm({ isProPlan }: { isProPlan: boolean }) {
   const { defaultModel, setDefaultModel } = useDefaultModel()
   
   // UI-specific local state
-  const [visibleKeys, setVisibleKeys] = useState<Record<ServiceName, boolean>>({} as Record<ServiceName, boolean>)
-  const [newKeyValues, setNewKeyValues] = useState<Record<ServiceName, string>>({} as Record<ServiceName, string>)
+  const [visibleKeys, setVisibleKeys] = useState<Record<string, boolean>>({})
+  const [newKeyValues, setNewKeyValues] = useState<Record<string, string>>({})
   const [copiedKey, setCopiedKey] = useState<ServiceName | null>(null)
   
   // Track if we've initialized the default model
@@ -70,16 +70,7 @@ export function ApiKeysForm({ isProPlan }: { isProPlan: boolean }) {
 
     // Automatically set the default model based on the provider
     const autoSelectModel = () => {
-      switch (service) {
-        case 'anthropic':
-          return MODEL_DESIGNATIONS.FRONTIER
-        case 'openai':
-          return MODEL_DESIGNATIONS.FRONTIER
-        case 'openrouter':
-          return MODEL_DESIGNATIONS.BALANCED
-        default:
-          return defaultModel
-      }
+      return MODEL_DESIGNATIONS.FRONTIER
     }
 
     const newModel = autoSelectModel()

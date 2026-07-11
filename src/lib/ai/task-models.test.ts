@@ -6,34 +6,34 @@ import type { AIConfig } from "@/lib/ai-models";
 
 describe("task model routing", () => {
   it("routes full resume tailoring by plan", () => {
-    assert.equal(getTaskModel("jobTailoring", false), "gpt-5.4-nano");
-    assert.equal(getTaskModel("jobTailoring", true), "gpt-5.5");
+    assert.equal(getTaskModel("jobTailoring", false), "deepseek-chat");
+    assert.equal(getTaskModel("jobTailoring", true), "deepseek-reasoner");
   });
 
-  it("routes extraction and scoring to GPT-5.4 Nano", () => {
-    assert.equal(getTaskModel("structuredExtraction", false), "gpt-5.4-nano");
-    assert.equal(getTaskModel("structuredExtraction", true), "gpt-5.4-nano");
-    assert.equal(getTaskModel("resumeScoring", false), "gpt-5.4-nano");
-    assert.equal(getTaskModel("resumeScoring", true), "gpt-5.4-nano");
+  it("routes extraction and scoring to V4 Flash", () => {
+    assert.equal(getTaskModel("structuredExtraction", false), "deepseek-chat");
+    assert.equal(getTaskModel("structuredExtraction", true), "deepseek-chat");
+    assert.equal(getTaskModel("resumeScoring", false), "deepseek-chat");
+    assert.equal(getTaskModel("resumeScoring", true), "deepseek-chat");
   });
 
-  it("routes bullet generation and cover letters to GPT-5.4 Mini", () => {
-    assert.equal(getTaskModel("contentGeneration", false), "gpt-5.4-mini");
-    assert.equal(getTaskModel("contentGeneration", true), "gpt-5.4-mini");
-    assert.equal(getTaskModel("coverLetter", false), "gpt-5.4-mini");
-    assert.equal(getTaskModel("coverLetter", true), "gpt-5.4-mini");
+  it("routes bullet generation and cover letters to V4 Flash", () => {
+    assert.equal(getTaskModel("contentGeneration", false), "deepseek-chat");
+    assert.equal(getTaskModel("contentGeneration", true), "deepseek-chat");
+    assert.equal(getTaskModel("coverLetter", false), "deepseek-chat");
+    assert.equal(getTaskModel("coverLetter", true), "deepseek-chat");
   });
 
-  it("routes free chat assistant to GPT-5.4 Nano", () => {
-    assert.equal(getTaskModel("chatAssistant", false), "gpt-5.4-nano");
-    assert.equal(getTaskModel("chatAssistant", true), "gpt-5.5");
+  it("routes free chat assistant to V4 Flash", () => {
+    assert.equal(getTaskModel("chatAssistant", false), "deepseek-chat");
+    assert.equal(getTaskModel("chatAssistant", true), "deepseek-reasoner");
   });
 
   it("preserves API keys and custom prompts while replacing the model", () => {
     const config: AIConfig = {
-      model: "claude-sonnet-4-6",
+      model: "deepseek-reasoner",
       apiKeys: [
-        { service: "anthropic", key: "user-anthropic", addedAt: "2026-05-10" },
+        { service: "deepseek", key: "user-deepseek", addedAt: "2026-05-10" },
       ],
       customPrompts: {
         textAnalyzer: "Extract carefully.",
@@ -46,7 +46,7 @@ describe("task model routing", () => {
       config,
     });
 
-    assert.equal(resolved.model, "gpt-5.4-nano");
+    assert.equal(resolved.model, "deepseek-chat");
     assert.deepEqual(resolved.apiKeys, config.apiKeys);
     assert.deepEqual(resolved.customPrompts, config.customPrompts);
   });
@@ -56,12 +56,12 @@ describe("task model routing", () => {
       task: "chatAssistant",
       isPro: true,
       config: {
-        model: "claude-opus-4-7",
+        model: "deepseek-reasoner",
         apiKeys: [],
       },
       respectSelectedModel: true,
     });
 
-    assert.equal(resolved.model, "claude-opus-4-7");
+    assert.equal(resolved.model, "deepseek-reasoner");
   });
 });

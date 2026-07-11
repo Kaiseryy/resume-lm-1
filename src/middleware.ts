@@ -18,6 +18,6 @@ export const config = {
      * - image files (svg, png, jpg, etc.)
      * Run on all other routes to protect them
      */
-    '/((?!_next/static|_next/image|favicon.ico|api/webhooks|blog(?:/.*)?|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|api/webhooks|blog(?:/.*)?|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|webm|mov)$).*)',
   ],
 }

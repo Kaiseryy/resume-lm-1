@@ -11,8 +11,8 @@ const ORIGINAL_ENV = {
 };
 
 const resolved: ResolvedAIRequest = {
-  providerId: "openai",
-  modelId: "gpt-5.4-mini",
+  providerId: "deepseek",
+  modelId: "deepseek-chat",
   apiKey: "provider-secret",
   usedServerKey: true,
   requiresRateLimit: true,
