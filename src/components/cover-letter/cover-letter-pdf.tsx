@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
     padding: 48,
     fontFamily: 'Helvetica',
     fontSize: 10.5,
-    lineHeight: 1.4,
     color: '#111827',
   },
   paragraph: {
-    marginBottom: 8,
+    marginBottom: 14,
   },
-  closing: {
-    marginTop: 16,
+  paragraphText: {
+    textAlign: 'justify',
+    lineHeight: 0.8,
   },
 });
 
@@ -53,12 +53,11 @@ export const CoverLetterPDF = memo(function CoverLetterPDF({ resume }: CoverLett
     <Document>
       <Page size="LETTER" style={styles.page}>
         {paragraphs.map((p, i) => {
-          const isClosing = i >= paragraphs.length - 2;
           const lines = p.split('\n');
           return (
-            <View key={i} style={isClosing ? styles.closing : styles.paragraph}>
+            <View key={i} style={styles.paragraph}>
               {lines.map((line, li) => (
-                <Text key={li}>{line}{li < lines.length - 1 ? '\n' : ''}</Text>
+                <Text key={li} style={styles.paragraphText}>{line}{li < lines.length - 1 ? '\n' : ''}</Text>
               ))}
             </View>
           );
